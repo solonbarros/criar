@@ -1,0 +1,32 @@
+{
+    "name": "orgao-publico/controle-acesso",
+    "description": "Sistema de controle de acesso com Laravel 11",
+    "type": "project",
+    "require": {
+        "php": "^8.3",
+        "laravel/framework": "^11.0",
+        "laravel/sanctum": "^4.0",
+        "spatie/laravel-permission": "^6.0",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "intervention/image": "^2.7"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate --ansi"
+        ]
+    }
+}

@@ -1,0 +1,8 @@
+/vendor/
+/node_modules/
+/frontend/node_modules/
+.env
+storage/
+bootstrap/cache/
+.DS_Store
+.idea/
