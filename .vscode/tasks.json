@@ -1,0 +1,125 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Setup: composer install",
+            "type": "shell",
+            "command": "composer install",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Setup: npm install",
+            "type": "shell",
+            "command": "npm install",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Dev: Laravel API",
+            "type": "shell",
+            "command": "php artisan serve --host=127.0.0.1 --port=8000",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "."
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^Starting Laravel development server",
+                    "endsPattern": "^Starting Laravel development server"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": false
+            }
+        },
+        {
+            "label": "Dev: React Vite",
+            "type": "shell",
+            "command": "npm run dev -- --host 127.0.0.1 --port 5173",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "."
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^\\s*VITE v",
+                    "endsPattern": "ready in"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": false
+            }
+        },
+        {
+            "label": "Dev: Start Fullstack",
+            "dependsOn": [
+                "Dev: Laravel API",
+                "Dev: React Vite"
+            ],
+            "dependsOrder": "parallel"
+        },
+        {
+            "label": "Docker: up",
+            "type": "shell",
+            "command": "docker compose up -d",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker: down",
+            "type": "shell",
+            "command": "docker compose down",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "DB: initialize (Unix)",
+            "type": "shell",
+            "command": "./scripts/init.sh",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "APP_ENV": "local"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "DB: initialize (Windows)",
+            "type": "shell",
+            "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/init.ps1",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "APP_ENV": "local"
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}

@@ -35,6 +35,25 @@ docker/             # Arquivos de infraestrutura (Nginx, PHP-FPM, certificados)
 5. Acesse `https://acesso.local` no navegador (importando o certificado de desenvolvimento em `docker/nginx/certs`).
 6. No diretório `frontend`, instale dependências (`npm install`) e execute `npm run dev` para iniciar o frontend.
 
+## Execução no VS Code
+
+Para facilitar o desenvolvimento local sem depender exclusivamente do Docker, o projeto traz uma pasta `.vscode` com tarefas e configurações pré-definidas. Antes de rodar os serviços certifique-se de ter instalado no host:
+
+- PHP 8.3 com extensões `fileinfo`, `gd` e `pdo_mysql` habilitadas.
+- Composer 2.x.
+- Node.js 18+ e npm.
+- MariaDB local (ou utilize `docker compose up -d`).
+
+Em seguida:
+
+1. Abra a paleta de comandos (`Ctrl+Shift+P` / `Cmd+Shift+P`) e execute **Tasks: Run Task**.
+2. Rode `Setup: composer install` e `Setup: npm install` na primeira vez para baixar as dependências.
+3. Se estiver usando banco de dados local via Docker, execute `Docker: up`. Para inicializar a base pela primeira vez, rode `DB: initialize (Unix)` ou `DB: initialize (Windows)` conforme seu sistema operacional.
+4. Inicie os servidores de desenvolvimento com a tarefa `Dev: Start Fullstack`. Ela abre dois terminais dedicados, um para `php artisan serve` (API em http://127.0.0.1:8000) e outro para o Vite (frontend em http://127.0.0.1:5173).
+5. (Opcional) Pressione `F5` e escolha **Run fullstack and open browser** para executar a tarefa anterior e abrir o frontend no Chrome integrado do VS Code.
+
+Caso prefira rodar manualmente, você ainda pode iniciar cada tarefa individualmente (`Dev: Laravel API`, `Dev: React Vite`, etc.). As extensões recomendadas (`Intelephense`, `Tailwind CSS IntelliSense`, `Docker`, entre outras) são sugeridas automaticamente ao abrir o projeto.
+
 ## Testes e Qualidade
 
 - Execute `php artisan test` para testes de backend.
